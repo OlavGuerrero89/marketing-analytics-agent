@@ -1,0 +1,1 @@
+"""Grounded answer composition placeholder."""

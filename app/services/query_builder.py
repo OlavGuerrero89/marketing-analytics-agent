@@ -1,0 +1,1 @@
+"""Cube query builder placeholder."""

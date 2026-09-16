@@ -1,0 +1,1 @@
+"""Cube result validation placeholder."""

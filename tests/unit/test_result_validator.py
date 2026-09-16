@@ -1,0 +1,1 @@
+"""Result validator tests placeholder."""
