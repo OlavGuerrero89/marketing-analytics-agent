@@ -25,4 +25,9 @@ class LanguageModelFactory:
             temperature=settings.llm_temperature,
             timeout=settings.llm_timeout_seconds,
             max_retries=2,
-        )
+            extra_body={
+                "provider": {
+                    "require_parameters": True,
+                    }
+                },
+            )
