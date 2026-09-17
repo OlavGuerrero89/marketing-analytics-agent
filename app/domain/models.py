@@ -2,7 +2,10 @@
 
 from __future__ import annotations
 
+from collections.abc import Mapping
+from dataclasses import dataclass
 from datetime import date
+from decimal import Decimal
 from enum import StrEnum
 from typing import Self
 
@@ -116,3 +119,22 @@ class InterpretedQuestion(BaseModel):
             )
 
         return self
+
+
+@dataclass(frozen=True)
+class ValidatedRow:
+    """Normalized values from one Cube response row."""
+
+    dimensions: Mapping[Dimension, str]
+    metrics: Mapping[Metric, Decimal | None]
+
+
+@dataclass(frozen=True)
+class ValidatedResult:
+    """Validated collection of normalized Cube rows."""
+
+    rows: tuple[ValidatedRow, ...]
+
+    @property
+    def is_empty(self) -> bool:
+        return not self.rows

@@ -32,23 +32,18 @@ def build_parser_with_result(result):
     return parser, invocation
 
 
-def test_returns_ready_structured_interpretation() -> None:
+def test_returns_model_structured_interpretation() -> None:
     expected = InterpretedQuestion(
         status=IntentStatus.READY,
         request=AnalyticalRequest(
-            metrics=(Metric.PURCHASES,),
-            dimensions=(Dimension.CAMPAIGN_NAME,),
-            order_by=SortSpec(
-                metric=Metric.PURCHASES,
-                direction=SortDirection.DESCENDING,
-            ),
-            limit=1,
+            metrics=(Metric.SPEND,),
+            dimensions=(Dimension.CHANNEL,),
         ),
     )
     parser, invocation = build_parser_with_result(expected)
 
     result = parser.parse(
-        "Which campaign generated the most purchases?"
+        "How much did we spend by channel?"
     )
 
     assert result == expected
@@ -99,3 +94,47 @@ def test_rejects_non_structured_model_response() -> None:
         parser.parse("How much did we spend?")
 
     invocation.assert_called_once()
+
+
+def test_ambiguous_best_requests_clarification_without_model_call() -> None:
+    expected = InterpretedQuestion(
+        status=IntentStatus.READY,
+        request=AnalyticalRequest(metrics=(Metric.SPEND,)),
+    )
+    parser, invocation = build_parser_with_result(expected)
+
+    result = parser.parse("Which campaign performed best?")
+
+    assert result.status is IntentStatus.NEEDS_CLARIFICATION
+    assert result.request is None
+    assert result.message == (
+        "Which metric should define best performance: "
+        "purchases or ROAS?"
+    )
+    invocation.assert_not_called()
+
+
+def test_purchase_ranking_is_deterministic() -> None:
+    model_result = InterpretedQuestion(
+        status=IntentStatus.NEEDS_CLARIFICATION,
+        message="Incorrect model response.",
+    )
+    parser, invocation = build_parser_with_result(model_result)
+
+    result = parser.parse(
+        "Which campaign generated the most purchases?"
+    )
+
+    assert result == InterpretedQuestion(
+        status=IntentStatus.READY,
+        request=AnalyticalRequest(
+            metrics=(Metric.PURCHASES,),
+            dimensions=(Dimension.CAMPAIGN_NAME,),
+            order_by=SortSpec(
+                metric=Metric.PURCHASES,
+                direction=SortDirection.DESCENDING,
+            ),
+            limit=1,
+        ),
+    )
+    invocation.assert_not_called()

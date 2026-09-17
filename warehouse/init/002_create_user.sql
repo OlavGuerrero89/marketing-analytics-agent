@@ -1,1 +1,0 @@
--- Placeholder for the approved read-only Cube user.

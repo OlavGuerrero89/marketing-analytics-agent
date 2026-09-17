@@ -23,3 +23,7 @@ class LanguageModelConfigurationError(Exception):
 
 class LanguageModelResponseError(Exception):
     """The language model returned an invalid structured response."""
+
+
+class ResultValidationError(Exception):
+    """Cube data violates the expected analytical contract."""

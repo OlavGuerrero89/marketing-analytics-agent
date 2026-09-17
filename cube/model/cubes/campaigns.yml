@@ -1,4 +1,4 @@
-# Campaign cube placeholder.
+# Private Cube model for campaign descriptive attributes.
 cubes:
   - name: campaigns
     sql_table: marketing.campaigns

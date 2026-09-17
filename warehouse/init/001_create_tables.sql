@@ -1,4 +1,4 @@
--- Placeholder for the approved ClickHouse schema.
+-- ClickHouse schema for deterministic marketing campaign data.
 CREATE DATABASE IF NOT EXISTS marketing;
 
 CREATE TABLE IF NOT EXISTS marketing.campaigns

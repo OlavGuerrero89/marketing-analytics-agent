@@ -1,0 +1,34 @@
+# Version control
+.git
+.gitignore
+
+# Secrets and local configuration
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+
+# Python environments and caches
+.venv
+__pycache__
+*.py[cod]
+*.egg-info
+.pytest_cache
+.ruff_cache
+.mypy_cache
+
+# Test and coverage artifacts
+.coverage
+coverage.xml
+htmlcov
+
+# Local runtime state
+cube/.cubestore
+logs
+tmp
+
+# Files not required by the runtime image
+tests
+docs
+warehouse

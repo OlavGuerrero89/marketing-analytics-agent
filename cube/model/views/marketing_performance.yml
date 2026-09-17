@@ -1,4 +1,4 @@
-# Public marketing performance view placeholder.
+# Public governed view exposed to the analytical agent.
 views:
   - name: marketing_performance
     description: >

@@ -1,4 +1,4 @@
-# Campaign performance cube placeholder.
+# Private Cube model for daily campaign-performance facts.
 cubes:
   - name: campaign_performance
     sql_table: marketing.campaign_performance_daily

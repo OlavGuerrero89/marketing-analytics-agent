@@ -30,3 +30,6 @@ Thumbs.db
 logs/
 tmp/
 .langgraph_api/
+
+# Cube runtime state
+cube/.cubestore/

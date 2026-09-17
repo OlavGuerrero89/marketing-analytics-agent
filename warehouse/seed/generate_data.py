@@ -1,4 +1,4 @@
-"""Deterministic fake marketing data generator placeholder."""
+"""Generate deterministic fake marketing-performance data."""
 
 from __future__ import annotations
 
@@ -6,9 +6,8 @@ import csv
 import random
 from dataclasses import dataclass
 from datetime import date, timedelta
-from decimal import Decimal, ROUND_HALF_UP
+from decimal import ROUND_HALF_UP, Decimal
 from pathlib import Path
-
 
 RANDOM_SEED = 42
 EXPECTED_PERFORMANCE_ROWS = 436

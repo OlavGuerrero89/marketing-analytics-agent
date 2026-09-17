@@ -723,6 +723,44 @@ files = [
 ]
 
 [[package]]
+name = "langchain"
+version = "1.4.1"
+description = "Building applications with LLMs through composability"
+optional = false
+python-versions = "<4.0.0,>=3.10.0"
+groups = ["main"]
+files = [
+    {file = "langchain-1.4.1-py3-none-any.whl", hash = "sha256:1286dd89c7fe2c552ba5b058fae16576e0acc8b0a5c1d060edc24d7d1f9230b7"},
+    {file = "langchain-1.4.1.tar.gz", hash = "sha256:5080fc66792a4c97ec20898006b740dc008f8777a46ff8c6f05b4ff8132928af"},
+]
+
+[package.dependencies]
+langchain-core = ">=1.6.0,<2.0.0"
+langgraph = ">=1.2.11,<1.3.0"
+pydantic = ">=2.7.4,<3.0.0"
+
+[package.extras]
+anthropic = ["langchain-anthropic"]
+aws = ["langchain-aws"]
+azure-ai = ["langchain-azure-ai"]
+baseten = ["langchain-baseten (>=0.2.0)"]
+community = ["langchain-community"]
+deepseek = ["langchain-deepseek"]
+fireworks = ["langchain-fireworks"]
+google-genai = ["langchain-google-genai"]
+google-vertexai = ["langchain-google-vertexai"]
+groq = ["langchain-groq"]
+huggingface = ["langchain-huggingface"]
+mcp = ["fastmcp (>=4.0.1,<5.0.0)"]
+meta = ["langchain-meta"]
+mistralai = ["langchain-mistralai"]
+ollama = ["langchain-ollama"]
+openai = ["langchain-openai"]
+perplexity = ["langchain-perplexity"]
+together = ["langchain-together"]
+xai = ["langchain-xai"]
+
+[[package]]
 name = "langchain-core"
 version = "1.6.3"
 description = "Building applications with LLMs through composability"
@@ -2634,4 +2672,4 @@ dev = ["pytest", "pytest-cov", "respx", "ruff"]
 [metadata]
 lock-version = "2.1"
 python-versions = ">=3.11,<3.13"
-content-hash = "b7ec26d44ef61f437324cc2b55f4690863bd1bf075744a4dcf299534ae11861a"
+content-hash = "3a632e650cbe6292e2d1467b455f9569fcb8c18bc9e4030358441708126657ac"
