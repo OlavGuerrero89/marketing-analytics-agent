@@ -1,1 +1,27 @@
 # Public marketing performance view placeholder.
+views:
+  - name: marketing_performance
+    description: >
+      Governed marketing-performance dataset for analysis by campaign,
+      channel, objective, and date.
+
+    cubes:
+      - join_path: campaign_performance
+        includes:
+          - event_date
+          - impressions
+          - clicks
+          - spend
+          - purchases
+          - revenue
+          - ctr
+          - cpc
+          - cpa
+          - roas
+
+      - join_path: campaign_performance.campaigns
+        includes:
+          - campaign_id
+          - campaign_name
+          - channel
+          - objective

@@ -12,10 +12,23 @@ license = { text = "MIT" }
 authors = [
   { name = "Camilo" }
 ]
-dependencies = []
+dependencies = [
+  "httpx>=0.28.1,<1.0",
+  "pydantic>=2.13.5,<3.0",
+  "pydantic-settings>=2.15.0,<3.0",
+  "langchain-core (>=1.0,<2.0)",
+  "langchain-openai (>=1.0,<2.0)",
+  "langgraph (>=1.0,<2.0)",
+  "langfuse (>=4.0,<5.0)",
+]
 
 [project.optional-dependencies]
-dev = []
+dev = [
+  "pytest>=8.0,<10.0",
+  "pytest-cov>=6.0,<8.0",
+  "respx>=0.22,<1.0",
+  "ruff>=0.12,<1.0",
+]
 
 [project.scripts]
 marketing-agent = "app.cli:main"
@@ -23,6 +36,9 @@ marketing-agent = "app.cli:main"
 [tool.pytest.ini_options]
 testpaths = ["tests"]
 addopts = "-ra --strict-markers"
+markers = [
+  "integration: requires locally running infrastructure",
+]
 
 [tool.coverage.run]
 branch = true
@@ -41,3 +57,8 @@ select = ["E", "F", "I", "B", "UP"]
 
 [tool.ruff.format]
 quote-style = "double"
+
+[tool.poetry]
+packages = [
+    { include = "app" }
+]

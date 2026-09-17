@@ -1,1 +1,37 @@
 # Campaign cube placeholder.
+cubes:
+  - name: campaigns
+    sql_table: marketing.campaigns
+    public: false
+
+    dimensions:
+      - name: campaign_id
+        sql: campaign_id
+        type: string
+        primary_key: true
+        description: Unique campaign identifier.
+
+      - name: campaign_name
+        sql: campaign_name
+        type: string
+        description: Human-readable campaign name.
+
+      - name: channel
+        sql: channel
+        type: string
+        description: Marketing delivery channel.
+
+      - name: objective
+        sql: objective
+        type: string
+        description: Primary campaign objective.
+
+      - name: start_date
+        sql: start_date
+        type: time
+        description: First active campaign date.
+
+      - name: end_date
+        sql: end_date
+        type: time
+        description: Last active campaign date.

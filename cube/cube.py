@@ -1,1 +1,2 @@
-# Cube configuration placeholder.
+"""Cube runtime configuration."""
+from cube import config

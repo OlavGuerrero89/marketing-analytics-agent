@@ -1,1 +1,78 @@
 # Campaign performance cube placeholder.
+cubes:
+  - name: campaign_performance
+    sql_table: marketing.campaign_performance_daily
+    public: false
+
+    joins:
+      - name: campaigns
+        sql: "{CUBE}.campaign_id = {campaigns.campaign_id}"
+        relationship: many_to_one
+
+    dimensions:
+      - name: row_id
+        sql: "concat(toString({CUBE}.event_date), '-', {CUBE}.campaign_id)"
+        type: string
+        primary_key: true
+        public: false
+
+      - name: event_date
+        sql: event_date
+        type: time
+        description: Calendar date of the daily campaign observation.
+
+      - name: campaign_id
+        sql: campaign_id
+        type: string
+        public: false
+
+    measures:
+      - name: impressions
+        sql: impressions
+        type: sum
+        description: Total number of ad impressions.
+
+      - name: clicks
+        sql: clicks
+        type: sum
+        description: Total number of ad clicks.
+
+      - name: spend
+        sql: spend
+        type: sum
+        format: currency
+        description: Total marketing spend in USD.
+
+      - name: purchases
+        sql: purchases
+        type: sum
+        description: Total attributed purchases.
+
+      - name: revenue
+        sql: revenue
+        type: sum
+        format: currency
+        description: Total attributed revenue in USD.
+
+      - name: ctr
+        sql: "1.0 * {clicks} / NULLIF({impressions}, 0)"
+        type: number
+        format: percent
+        description: Clicks divided by impressions.
+
+      - name: cpc
+        sql: "1.0 * {spend} / NULLIF({clicks}, 0)"
+        type: number
+        format: currency
+        description: Spend divided by clicks.
+
+      - name: cpa
+        sql: "1.0 * {spend} / NULLIF({purchases}, 0)"
+        type: number
+        format: currency
+        description: Spend divided by purchases.
+
+      - name: roas
+        sql: "1.0 * {revenue} / NULLIF({spend}, 0)"
+        type: number
+        description: Revenue divided by spend.

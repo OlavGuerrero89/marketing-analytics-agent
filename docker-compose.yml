@@ -1,2 +1,71 @@
-# Placeholder. Services will be added after the container design is approved.
-services: {}
+name: marketing-analytics-agent
+
+services:
+  clickhouse:
+    image: clickhouse/clickhouse-server:26.8.5.13
+    container_name: marketing-clickhouse
+
+    environment:
+      CLICKHOUSE_DB: ${CLICKHOUSE_DB}
+      CLICKHOUSE_USER: ${CLICKHOUSE_USER}
+      CLICKHOUSE_PASSWORD: ${CLICKHOUSE_PASSWORD}
+      CLICKHOUSE_DEFAULT_ACCESS_MANAGEMENT: "1"
+
+    ports:
+      - "8123:8123"
+      - "9000:9000"
+
+    volumes:
+      - clickhouse_data:/var/lib/clickhouse
+
+    healthcheck:
+      test:
+        [
+          "CMD-SHELL",
+          "clickhouse-client --user \"$${CLICKHOUSE_USER}\" --password \"$${CLICKHOUSE_PASSWORD}\" --query \"SELECT 1\""
+        ]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+      start_period: 10s
+
+  cube:
+    image: cubejs/cube:v1.6.70
+    container_name: marketing-cube
+
+    environment:
+      CUBEJS_DEV_MODE: "true"
+      CUBEJS_DB_TYPE: clickhouse
+      CUBEJS_DB_HOST: clickhouse
+      CUBEJS_DB_PORT: "8123"
+      CUBEJS_DB_NAME: ${CLICKHOUSE_DB}
+      CUBEJS_DB_USER: ${CLICKHOUSE_USER}
+      CUBEJS_DB_PASS: ${CLICKHOUSE_PASSWORD}
+      CUBEJS_SCHEMA_PATH: model
+      CUBEJS_TELEMETRY: "false"
+
+    ports:
+      - "4000:4000"
+
+    volumes:
+      - ./cube:/cube/conf
+
+    depends_on:
+      clickhouse:
+        condition: service_healthy
+
+    healthcheck:
+      test:
+        [
+          "CMD",
+          "node",
+          "-e",
+          "fetch('http://localhost:4000/readyz').then(response => process.exit(response.ok ? 0 : 1)).catch(() => process.exit(1))"
+        ]
+      interval: 5s
+      timeout: 3s
+      retries: 20
+      start_period: 20s
+
+volumes:
+  clickhouse_data:

@@ -1,1 +1,9 @@
 campaign_id,campaign_name,channel,objective,start_date,end_date
+CMP001,Search Brand,Search,Acquisition,2026-01-01,2026-02-28
+CMP002,Search Non-Brand,Search,Acquisition,2026-01-01,2026-02-28
+CMP003,Social Prospecting,Social,Acquisition,2026-01-01,2026-02-28
+CMP004,Social Retargeting,Social,Retention,2026-01-01,2026-02-28
+CMP005,Email Loyalty,Email,Retention,2026-01-01,2026-02-28
+CMP006,Email Reactivation,Email,Retention,2026-01-15,2026-02-28
+CMP007,Display Awareness,Display,Awareness,2026-01-01,2026-02-15
+CMP008,Display Retargeting,Display,Acquisition,2026-01-10,2026-02-28
